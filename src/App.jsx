@@ -10,7 +10,6 @@ function App() {
   //creating function to load ip address from the API
   const getData = async () => {
     const res = await axios.get("https://geolocation-db.com/json/");
-    console.log(res.data);
     setIP(res.data.IPv4);
   };
 
@@ -20,18 +19,26 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.get(`https://geolocation-db.com/json/${ip}`).then((res) => {
-      // console.log(res.data);
-      // setLocationDetails(res.data);
-    });
+    // axios.get(`https://geolocation-db.com/json/${ip}`).then((res) => {
+    //   console.log(res.data);
+    //   setLocationDetails(res.data);
+    // });
 
-    axios.get(`https://ipfind.co/?ip=${ip}&auth=8e7d9c05-752d-462c-a7b8-e6223bbee504`,
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
-    }).then((res) => {
+    // axios.get(`https://ipfind.co/?ip=${ip}&auth=8e7d9c05-752d-462c-a7b8-e6223bbee504`,
+    // {
+    //   headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    //   }
+    // }).then((res) => {
+    //   console.log(res.data);
+    //   setLocationDetails(res.data);
+    // }
+    // );
+
+    //1879f8e663714bd39496672aa6aaf629
+
+    axios.get(`https://ipgeolocation.abstractapi.com/v1/?api_key=1879f8e663714bd39496672aa6aaf629&ip_address=${ip}`).then((res) => {
       console.log(res.data);
       setLocationDetails(res.data);
     }
@@ -55,6 +62,9 @@ function App() {
           </h4>
           <h4>
             Country Code<span className='location'>{locationDetails.country_code}</span>{" "}
+          </h4>
+          <h4>
+            Region <span className='location'>{locationDetails.region}</span>
           </h4>
         </div>
       ) : (

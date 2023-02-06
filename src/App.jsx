@@ -20,11 +20,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    //call geolocate method to get the location using ip address
     axios.get(`https://geolocation-db.com/json/${ip}`).then((res) => {
+      // console.log(res.data);
+      // setLocationDetails(res.data);
+    });
+
+    axios.get(`https://ipfind.co/?ip=${ip}&auth=8e7d9c05-752d-462c-a7b8-e6223bbee504`,
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+    }).then((res) => {
       console.log(res.data);
       setLocationDetails(res.data);
-    });
+    }
+    );
   }, [ip]);
 
   return (
@@ -40,7 +51,7 @@ function App() {
             City <span className='location'>{locationDetails.city} </span>
           </h4>
           <h4>
-            Country<span className='location'>{locationDetails.country_name}</span>
+            Country<span className='location'>{locationDetails.country}</span>
           </h4>
           <h4>
             Country Code<span className='location'>{locationDetails.country_code}</span>{" "}
